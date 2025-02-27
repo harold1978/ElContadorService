@@ -1,0 +1,50 @@
+﻿@page "/CuentaContables"
+@using FrontElContador.Models
+@inject HttpClient http
+
+
+<h3>Cuenta Contables Index</h3>
+
+<table class="table table-striped table-hover table-primary table-sm">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Codigo</th>
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <th>Saldo</th>
+            <th>Comados</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var c in Cuentas!)
+        {
+            <tr>
+                <td>@c.Id</td>
+                <td>@c.Codigo</td>
+                <td>@c.Nombre</td>
+                <td>@c.Tipo</td>
+                <td>@c.Saldo</td>
+                <td>Botones</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private List<CuentaContable> Cuentas = new List<CuentaContable>();
+
+    private CuentaContable Cuenta = new CuentaContable();
+
+    private async Task cargar()
+    {
+        Cuentas = await http.GetFromJsonAsync<List<CuentaContable>>("/api/CuentaContables");
+    }
+
+
+
+    protected override async Task OnInitializedAsync() => await  cargar();
+
+
+}

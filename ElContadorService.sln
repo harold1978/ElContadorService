@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34607.119
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElContadorService", "ElContadorService\ElContadorService.csproj", "{ABAED1B5-1243-4745-963D-50856E34739D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrontElContador", "FrontElContador\FrontElContador.csproj", "{76D0E0B1-EC23-4BD8-8D19-F846447AB67C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ABAED1B5-1243-4745-963D-50856E34739D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABAED1B5-1243-4745-963D-50856E34739D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABAED1B5-1243-4745-963D-50856E34739D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABAED1B5-1243-4745-963D-50856E34739D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76D0E0B1-EC23-4BD8-8D19-F846447AB67C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76D0E0B1-EC23-4BD8-8D19-F846447AB67C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76D0E0B1-EC23-4BD8-8D19-F846447AB67C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76D0E0B1-EC23-4BD8-8D19-F846447AB67C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E649515A-2639-4D34-ADB2-7DE2EE0CE3F5}
+	EndGlobalSection
+EndGlobal
