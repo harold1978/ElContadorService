@@ -9,7 +9,7 @@ public  class AsientoContable
     public int Id { get; set; }
 
 
-    public DateTime Fecha { get; set; }
+    public DateTime Fecha { get; set; }=DateTime.Now;
 
     public string Detalle { get; set; }
 

@@ -108,9 +108,7 @@
 
 @code {
     private List<CuentaContable>? Cuentas = new List<CuentaContable>();
-
     private CuentaContable Cuenta = new CuentaContable();
-
     private async Task procesar()
     {
         if (Cuenta.Id==0)
@@ -144,7 +142,6 @@
         Cuenta.Tipo = "";
         Cuenta.Saldo = 0;
     }
-
     private async Task Eliminar(int id)
     {
         var resp = await http.DeleteAsync("/api/CuentaContables/"+id);
@@ -153,14 +150,9 @@
             await cargar();    
         }
     }
-
     private void Actualizar(CuentaContable c)
     {
         Cuenta = c;
     }
-
-
     protected override async Task OnInitializedAsync() => await  cargar();
-
-
 }

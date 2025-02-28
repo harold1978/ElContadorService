@@ -1,0 +1,166 @@
+﻿@page "/AsientoContable"
+@using FrontElContador.Models
+@inject HttpClient http
+
+<h3>Asiento Contable</h3>
+<div class="container d-flex ">
+    <div>
+        <h4>
+            Mantenimiento de Asientos
+        </h4>
+    
+                <div class="mb-3 row">
+                    <label for="Id"
+                           class="col-4 col-form-label">ID</label>
+                    <div class="col-8">
+                        <input type="number" 
+                               class="form-control"
+                               name="Id"
+                               id="Id"
+                               @bind="Asiento.Id"
+                               placeholder="ID" disabled />
+                    </div>
+                </div>
+        <div class="mb-3 row">
+            <label for="Fech"
+                   class="col-4 col-form-label">FECHA</label>
+            <div class="col-8">
+                <input type="date"
+                       class="form-control"
+                       name="Fecha"
+                       id="Fecha"
+                       @bind="Asiento.Fecha" />
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="Detalle"
+                   class="col-4 col-form-label">DETALLE</label>
+            <div class="col-8">
+                <input type="text"
+                       class="form-control"
+                       name="Detalle"
+                       id="Detalle"
+                       @bind="Asiento.Detalle"
+                       placeholder="Detalle" />
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="NroAsiento"
+                   class="col-4 col-form-label">NUMERO ASIENTO</label>
+            <div class="col-8">
+                <input type="number"
+                       class="form-control"
+                       name="NroAsiento"
+                       id="NroAsiento"
+                       @bind="Asiento.NroAsiento"
+                       placeholder="NUmero asiento" />
+            </div>
+        </div>
+
+                <div class="mb-3 row">
+                    <div class="offset-sm-4 col-sm-8">
+                        <button type="button" @onclick="Procesar" class="btn btn-primary">
+                            PROCESAR
+                        </button>
+                    </div>
+                </div>
+   
+      
+
+
+        <div class="table-responsive">
+            <table class="table table-sm table-hover table-borderless table-primary align-middle">
+                <thead class="table-light">
+      
+                    <tr>
+                        <th>ID</th>
+                        <th>FECHA</th>
+                        <th>NRO ASIENTO</th>
+                        <th>DETALLE</th>
+                        <th>COMANDOS</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    @foreach (var asiento in ListaAsientos!)
+                    {
+                    <tr class="table-primary">
+                        <td scope="row">@asiento.Id</td>
+                        <td>@asiento.Fecha</td>
+                        <td>@asiento.NroAsiento</td>
+                            <td>@asiento.Detalle</td>
+                            <td>
+                                <button type="button" class="btn btn-success btn-sm" @onclick="(()=>Editar(asiento))">Editar</button>
+                                <button type="button" class="btn btn-danger btn-sm" @onclick="(()=>Eliminar(asiento.Id))">Eliminar</button>
+
+                            </td>
+                    </tr>
+                        
+                    }
+
+
+                </tbody>
+                <tfoot>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <div>
+        Detalle asiento
+        Tabla
+    </div>
+</div>
+
+
+
+@code {
+    private List<AsientoContable>? ListaAsientos = new List<AsientoContable>();
+    private AsientoContable Asiento = new AsientoContable();
+    private async Task Procesar()
+    {
+        if (Asiento.Id==0)
+        {
+            var resp = await http.PostAsJsonAsync("/api/AsientoContables",Asiento);
+         
+            if (resp.IsSuccessStatusCode)
+            {
+                limpiar();
+                await cargar();
+            }
+        }
+        if (Asiento.Id!=0)
+        {
+            var answ = await http.PutAsJsonAsync("/api/AsientoContables/"+Asiento.Id,Asiento);
+            if (answ.IsSuccessStatusCode)
+            {
+                limpiar();
+                await cargar();
+            }
+        }
+
+    }
+    private async Task Eliminar(int id)
+    {
+        var resp = await http.DeleteAsync("/api/AsientoContables/"+id);
+        if (resp.IsSuccessStatusCode)
+        {
+            await cargar();    
+        }
+    }
+    private void Editar(AsientoContable ac)
+    {
+        Asiento = ac;    
+    }
+    private void limpiar()
+    {
+        Asiento.Id = 0;
+        Asiento.Fecha = DateTime.Now;
+        Asiento.Detalle = "";
+        Asiento.NroAsiento = 0;
+    }
+    private async Task cargar()
+    {
+        ListaAsientos = await http.GetFromJsonAsync<List<AsientoContable>>("/api/AsientoContables");
+    }
+    protected override async Task OnInitializedAsync() { await cargar(); }
+
+}
